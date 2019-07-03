@@ -36,6 +36,11 @@ class Product
      * @ORM\Column(type="boolean")
      */
     private $isTop;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\catalogs", inversedBy="productss")
+     */
+    private $category;
 public function __construct()
 {$this->isTop=false;
 }
@@ -89,6 +94,18 @@ public function __construct()
     public function setIsTop(bool $isTop): self
     {
         $this->isTop = $isTop;
+
+        return $this;
+    }
+
+    public function getCatalogs(): ?catalogs
+    {
+        return $this->catalogs;
+    }
+
+    public function setCatalogs(?catalogs $catalogs): self
+    {
+        $this->catalogs = $catalogs;
 
         return $this;
     }
