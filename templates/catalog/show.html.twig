@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ catalogs.name }}</h1>
+    <p>{{ catalogs.description }}</p>
+{% endblock %}
+
+{% block title %}
+{{ catalogs.name }}
+{% endblock %}
+
