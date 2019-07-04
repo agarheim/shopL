@@ -89,7 +89,6 @@ public function __construct()
     public function setIsTop(bool $isTop): self
     {
         $this->isTop = $isTop;
-
         return $this;
     }
 }
