@@ -21,7 +21,10 @@ security:
                     - App\Security\LoginFormAuthenticator
             # ...
             logout:
-                path:   security_logout
+              path: security_logout
+
+            register:
+              path: security_register
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
