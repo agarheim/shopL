@@ -38,9 +38,9 @@ class Product
     private $isTop;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\catalogs", inversedBy="productss")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Catalogs", inversedBy="productss")
      */
-    private $category;
+    private $catalogs;
 public function __construct()
 {$this->isTop=false;
 }
@@ -98,12 +98,12 @@ public function __construct()
         return $this;
     }
 
-    public function getCatalogs(): ?catalogs
+    public function getCatalogs(): ?Catalogs
     {
         return $this->catalogs;
     }
 
-    public function setCatalogs(?catalogs $catalogs): self
+    public function setCatalogs(?Catalogs $catalogs): self
     {
         $this->catalogs = $catalogs;
 
