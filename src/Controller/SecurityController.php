@@ -45,6 +45,7 @@ EntityManagerInterface $entityManager)
     {
         $user = new User();
         $form= $this->createForm(RegistrationType::class, $user);
+        $form->handleRequest($request);
 if ($form->isSubmitted() && $form->isValid())
 {
     $hash= $encoder->encodePassword($user, $user->getPlainPassword());
@@ -65,6 +66,6 @@ if ($form->isSubmitted() && $form->isValid())
      */
     public function registerSuccess()
     {
-        return $this->render('security/register_success.html.twig')
+        return $this->render('security/register_success.html.twig');
     }
 }
