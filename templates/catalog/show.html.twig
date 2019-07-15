@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+    {{ catalogs.name }}
+{% endblock %}
 
 {% block body %}
     <h1>{{ catalogs.name }}</h1>
     <p>{{ catalogs.description }}</p>
+    {{ include('product/_list.html.twig',{'products':catalogs.productss}) }}
 {% endblock %}
 
-{% block title %}
-{{ catalogs.name }}
-{% endblock %}
+
 

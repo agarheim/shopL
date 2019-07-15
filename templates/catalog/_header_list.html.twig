@@ -1,0 +1,3 @@
+{%  for catalog in catalogs %}
+<a class="dropdown-item" href="{{ path('catalogs',{"id":catalog.id}) }}">{{ catalog.name }}</a>
+{% endfor %}

@@ -31,7 +31,7 @@ class Catalogs
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="catalogs")
      */
     private $productss;
 
