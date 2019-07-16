@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        {% block head %}
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         {% block stylesheets %}
-        .container{margin-top:1.5em
-            }
+
+
+        {% endblock %}
+          <style>  .container { margin-top:1.5em }</style>
         {% endblock %}
     </head>
     <body>
@@ -23,11 +26,11 @@
                         Каталог
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-{{ render(controller('App\\Controller\\CatalogController::headerlist')) }}
+                  {{ render(controller('App\\Controller\\CatalogController::headerlist')) }}
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('contact') }}">Контакты</a>
+                    {{ render(controller('App\\Controller\\PagesController::headerslist')) }}
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">

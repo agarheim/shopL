@@ -46,3 +46,9 @@ services:
            arguments: [~, App\Entity\User,~, '@security.user_password_encoder.generic']
            tags:
            - { name: sonata.admin, manager_type: orm, label: Пользователи }
+    # ...
+    admin.pages:
+           class: App\Admin\PagesAdmin
+           arguments: [~, App\Entity\Pages, ~]
+           tags:
+           - { name: sonata.admin, manager_type: orm, label: Страниц }

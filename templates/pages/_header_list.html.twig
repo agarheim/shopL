@@ -1,0 +1,6 @@
+{%  for page in pages %}
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('pages',{'id':page.id}) }}">{{ page.name }}</a>
+</li>
+{% endfor %}
+

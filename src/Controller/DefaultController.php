@@ -9,7 +9,6 @@
 namespace App\Controller;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -19,12 +18,11 @@ class DefaultController extends AbstractController
      */
     public function index(ProductRepository $productRepository)
     {$products=$productRepository->findBy(['isTop'=> true], ['name'=>'ASC']);
-     return $this->render('default/index.html.twig',
+         return $this->render('default/index.html.twig',
          [
              'products'=>$products,
-         ]);
-     //можно и так ответ отправить
-         //return new Response('Hello, World!');
+          ]);
+
     }
 
 }
