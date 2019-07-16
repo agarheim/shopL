@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-  locale: ru
+    locale: ru
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -27,14 +27,22 @@ services:
     # please note that last definitions always *replace* previous ones
 
     # ...
-    admin.catalogs:
-        class: App\Admin\CatalogsAdmin
+    admin.category:
+        class: App\Admin\CategoryAdmin
         arguments: [~, App\Entity\Catalogs, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Категории }
+        - { name: sonata.admin, manager_type: orm, label: Категории }
+        # ...
+
     # ...
-    admin.products:
-        class: App\Admin\ProductsAdmin
-        arguments: [~, App\Entity\Product, ~]
-        tags:
+    admin.product:
+            class: App\Admin\ProductAdmin
+            arguments: [~, App\Entity\Product, ~]
+            tags:
             - { name: sonata.admin, manager_type: orm, label: Товары }
+    # ...
+    admin.user:
+           class: App\Admin\UserAdmin
+           arguments: [~, App\Entity\User,~, '@security.user_password_encoder.generic']
+           tags:
+           - { name: sonata.admin, manager_type: orm, label: Пользователи }

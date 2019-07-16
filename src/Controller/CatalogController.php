@@ -30,4 +30,10 @@ class CatalogController extends AbstractController
             'catalogs' => $catalogs,
         ]);
     }
+    public function headerlist(CatalogsRepository $catalogsRepository)
+    {
+        return $this->render("catalog/_header_list.html.twig",
+            ['catalogs'=>$catalogsRepository->findAll(),
+            ]);
+    }
 }

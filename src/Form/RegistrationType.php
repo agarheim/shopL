@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,7 @@ class RegistrationType extends AbstractType
             ->add('plainPassword')
             ->add('firstname')
             ->add('lastname')
-            ->add('address')
+            ->add('address', TextareaType::class)
         ;
     }
 
