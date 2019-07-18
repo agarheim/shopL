@@ -2,6 +2,8 @@
 
 {% block body %}
     <h1>Form register</h1>
+
+{#    {{ tinymce_init({selector:'#registration_address'}) }}#}
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="form-group row">
@@ -11,6 +13,18 @@
     </div>
 
     {{ form_end(form) }}
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea',
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste moxiemanager"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+
+        });
+    </script>
 {% endblock %}
 
 {% block title %}
