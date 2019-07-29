@@ -25,22 +25,24 @@ class Order
     private $orderedAt;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default":0})
      */
     private $amount;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer" , options={"default":0})
      */
     private $count;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="cart", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="cart", orphanRemoval=true, cascade={"persist"})
      */
     private $items;
 
     public function __construct()
     {
+        $this->amount=0;
+        $this->count=0;
         $this->items = new ArrayCollection();
     }
 
@@ -98,6 +100,7 @@ class Order
         if (!$this->items->contains($item)) {
             $this->items[] = $item;
             $item->setCart($this);
+            $this->updateAmount();
         }
 
         return $this;
@@ -107,6 +110,7 @@ class Order
     {
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
+            $this->updateAmount();
             // set the owning side to null (unless already changed)
             if ($item->getCart() === $this) {
                 $item->setCart(null);
@@ -114,5 +118,17 @@ class Order
         }
 
         return $this;
+    }
+    public function updateAmount()
+    {
+        $amount =0;
+       $count=0;
+        foreach ($this->getItems() as $item)
+        {
+            $count+=$item->getCount();
+            $amount+=$item->getAmount();
+        }
+        $this->setCount($count);
+        $this->setAmount($amount);
     }
 }

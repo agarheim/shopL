@@ -10,36 +10,38 @@ namespace App\Service;
 
 
 use App\Entity\Order;
+use App\Entity\OrderItem;
+use App\Entity\Product;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class OrderService
-{ const SESSION_KEY;
+{
+    const SESSION_KEY='currentOrder';
+
     /**
      * @var EntityManagerInterface
      */
-private  $entityManager;
-    /**
-     * @var Session
-     */
-private  $session;
+      private  $entityManager;
 
     /**
-     * OrderService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param Session $session
+     * @var SessionInterface
      */
-    public function __construct(EntityManagerInterface $entityManager, Session $session,
-OrderRepository $orderRepository)
+      private  $session;
+
+    public function __construct(EntityManagerInterface $entityManager,
+                                SessionInterface $session,
+                                OrderRepository $orderRepository)
     {
         $this->entityManager = $entityManager;
-        $this->session = $session;
-        $this->orderRepository;
+        $this->sessions = $session;
+        $this->orderRepository=$orderRepository;
     }
     public function getOrder()
     {$order=null;
-    $orderId=$this->session->get(self::SESSION_KEY);
+    $orderId=$this->sessions->get(self::SESSION_KEY);
         if ($orderId)
         {
             $order=$this->orderRepository->find($orderId);
@@ -49,6 +51,36 @@ OrderRepository $orderRepository)
             $order= new Order();
         }
         return $order;
+    }
+    public function add(Product $product, int $count): Order
+    {
+        $order=$this->getOrder();
+        $existeningItem=null;
+        foreach ($order->getItems() as $item) {
+            if($item->getProduct()===$product)
+            {$existeningItem=$item;
+            break;}
+        }
+        if($existeningItem)
+        {
+            $newCount=$existeningItem->getCount()+$count;
+            $existeningItem->setCount($newCount);
+        }else
+        {
+            $existeningItem=new OrderItem();
+            $existeningItem->setProduct($product);
+            $existeningItem->setCount($count);
+            $order->addItem($existeningItem);
+        }
+        $this->save($order);
+        return $order;
+    }
+    public function save(Order $order)
+    {
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
+
+        $this->sessions->set(self::SESSION_KEY, $order->getId());
     }
 
 }
