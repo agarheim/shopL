@@ -1,18 +1,19 @@
 <div class="card-deck mb-3 text-center">
-    {% for product in products %}
+    {% for products in products %}
         <div class="card mb-4 shadow-sm">
-            {% if not product.images.empty %}
-            <img src="{{ vich_uploader_asset(product.images.first, 'image') | imagine_filter('products_list') }}" alt="">
+            {% if not products.images.empty %}
+            <img src="{{ vich_uploader_asset(products.images.first, 'image') | imagine_filter('products_list') }}" alt="">
             {% endif %}
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                <h4 class="my-0 font-weight-normal">{{ products.name }}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">{{  product.price / 100 }} uah <small class="text-muted">/ mo</small></h1>
-                {{ product.description }}
-                <a href="{{ path('product',{'id':product.id}) }}" class="btn btn-lg btn-block btn-outline-primary">подробнее</a>
-                <a href="{{ path('order_add_to_cart',{'id':product.id}) }}" class="btn btn-lg btn-block btn-outline-primary">
-                    <i class="fas fa-cart-plus"></i>
+                <h1 class="card-title pricing-card-title">{{  products.price / 100 }} uah</h1>
+                {{ products.description }}
+                <a href="{{ path('product',{'id':products.id}) }}" class="btn btn-lg btn-block btn-outline-primary">подробнее</a>
+                <a href="{{ path('order_add_to_cart',{'id':products.id}) }}"
+                   class="btn btn-lg btn-block btn-outline-primary js-add-to-cart">
+                    <i class="fas fa-cart-plus"></i>  в корзину
                 </a>
             </div>
         </div>
