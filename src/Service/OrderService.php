@@ -14,8 +14,8 @@ use App\Entity\OrderItem;
 use App\Entity\Product;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class OrderService
 {

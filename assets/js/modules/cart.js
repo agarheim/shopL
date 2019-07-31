@@ -13,7 +13,6 @@ addToCartButtons.forEach((button)=>{
            }
        })
            .then((response)=>{
-               alert(response.text());
            }).then((body)=>{
                document.getElementById('header-cart').innerHTML=body;
            })

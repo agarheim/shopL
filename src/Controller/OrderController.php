@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\Product;
+use App\Repository\OrderRepository;
 use App\Service\OrderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,5 +37,17 @@ class OrderController extends AbstractController
       $order= $orderService->getOrder();
       return $this->render('order/header_cart.html.twig',[
           'order'=> $order,]);
+  }
+
+    /**
+     *
+     * @Route("/cart", name="order_cart")
+     */
+  public function cart (OrderService $orderService){
+      $order=$orderService->getOrder();
+      return $this->render('order/cart.html.twig',
+          [ 'order'=> $order,
+              ]);
+
   }
 }
