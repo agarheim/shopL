@@ -57,7 +57,7 @@ class OrderService
         $order=$this->getOrder();
         $existeningItem=null;
         foreach ($order->getItems() as $item) {
-            if($item->getProduct()===$product)
+            if($item->getProductss()===$product)
             {$existeningItem=$item;
             break;}
         }
@@ -68,7 +68,7 @@ class OrderService
         }else
         {
             $existeningItem=new OrderItem();
-            $existeningItem->setProduct($product);
+            $existeningItem->setProductss($product);
             $existeningItem->setCount($count);
             $order->addItem($existeningItem);
         }

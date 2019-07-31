@@ -138,7 +138,7 @@ $this->orderItems = new ArrayCollection();
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setProduct($this);
+            $image->setProductss($this);
         }
 
         return $this;
@@ -149,8 +149,8 @@ $this->orderItems = new ArrayCollection();
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($image->getProduct() === $this) {
-                $image->setProduct(null);
+            if ($image->getProductss() === $this) {
+                $image->setProductss(null);
             }
         }
 
@@ -169,7 +169,7 @@ $this->orderItems = new ArrayCollection();
     {
         if (!$this->orderItems->contains($orderItem)) {
             $this->orderItems[] = $orderItem;
-            $orderItem->setProduct($this);
+            $orderItem->setProductss($this);
         }
 
         return $this;
@@ -180,8 +180,8 @@ $this->orderItems = new ArrayCollection();
         if ($this->orderItems->contains($orderItem)) {
             $this->orderItems->removeElement($orderItem);
             // set the owning side to null (unless already changed)
-            if ($orderItem->getProduct() === $this) {
-                $orderItem->setProduct(null);
+            if ($orderItem->getProductss() === $this) {
+                $orderItem->setProductss(null);
             }
         }
 

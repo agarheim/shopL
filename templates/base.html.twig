@@ -36,7 +36,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             <ul class="navbar-nav"><li class="nav-item"><a class="nav-link" id="header-cart" href="{{ path('order_cart') }}">
-                        {#{{ render(controller('App\\Controller\\OrderController::addToCart')) }}#}
+                        {{ render(controller('App\\Controller\\OrderController::addToCart')) }}
                     </a></li> </ul>
         </div>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
