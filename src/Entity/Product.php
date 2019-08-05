@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,8 +43,21 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\Catalogs", inversedBy="products")
      */
     private $catalogs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductImage", mappedBy="product",
+     *      orphanRemoval=true, cascade={"persist"})
+     */
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="product")
+     */
+    private $orderItems;
 public function __construct()
 {$this->isTop=false;
+$this->images = new ArrayCollection();
+$this->orderItems = new ArrayCollection();
 }
 
     public function getId(): ?int
@@ -105,6 +120,69 @@ public function __construct()
     public function setCatalogs(?Catalogs $catalogs): self
     {
         $this->catalogs = $catalogs;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductImage[]
+     *
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(ProductImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(ProductImage $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems[] = $orderItem;
+            $orderItem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItems->contains($orderItem)) {
+            $this->orderItems->removeElement($orderItem);
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getProduct() === $this) {
+                $orderItem->setProduct(null);
+            }
+        }
 
         return $this;
     }
