@@ -51,30 +51,57 @@ class OrderService
 
          public function add(Product $product, int $count): Order
          {
-             $order= $this->getOrder();
-             $existeningItem=null;
-             foreach ($order->getItems() as $item){
-               if($item->getProduct()===$product){
-                   $existeningItem=$item;
-                   break;
-               }
+
+             $order = $this->getOrder();
+             $existingItem = null;
+             foreach ($order->getItems() as $item) {
+                 if ($item->getProduct() === $product) {
+                     $existingItem = $item;
+                     break;
+                 }
              }
-             if($existeningItem){
-                 $newCount=$existeningItem->getCount()+$count;
-                 $existeningItem->setCount($newCount);
-             }else{
-                 $existeningItem= new OrderItem();
-                 $existeningItem->setProduct($product);
-                 $existeningItem->setCount($count);
-                 $order->addItem($existeningItem);
+             if ($existingItem) {
+                 $newCount = $existingItem->getCount() + $count;
+                 $existingItem->setCount($newCount);
+             } else {
+                 $existingItem = new OrderItem();
+                 $existingItem->setProduct($product);
+                 $existingItem->setCount($count);
+                 $order->addItem($existingItem);
              }
              $this->save($order);
              return $order;
+//             $order= $this->getOrder();
+//             $existeningItem=null;
+//             foreach ($order->getItems() as $item){
+//               if($item->getProduct()===$product){
+//                   $existeningItem=$item;
+//                   break;
+//               }
+//             }
+//             if($existeningItem){
+//                 $newCount=$existeningItem->getCount()+$count;
+//                 $existeningItem->setCount($newCount);
+//             }else{
+//                 $existeningItem= new OrderItem();
+//                 $existeningItem->setProduct($product);
+//                 $existeningItem->setCount($count);
+//                 $order->addItem($existeningItem);
+//             }
+//             $this->save($order);
+//             return $order;
          }
          public function save(Order $order)
          {
              $this->entitymanager->persist($order);
              $this->entitymanager->flush($order);
              $this->sessions->set(self::SESSION_KEY, $order->getId());
+         }
+         public function deleteItem(OrderItem $item)
+         {
+             $order=$item->getCart();
+             $order->removeItem($item);
+             $this->entitymanager->remove($item);
+             $this->save($order);
          }
 }

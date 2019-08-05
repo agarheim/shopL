@@ -1,6 +1,6 @@
 'use strict';
 
-let addToCartButtons;
+let addToCartButtons, cartItemCountInputs, cartTable;
 
 addToCartButtons=document.querySelectorAll('.js-add-to-cart');
 addToCartButtons.forEach((button)=> {
@@ -18,3 +18,64 @@ button.addEventListener('click',(event)=>{
        })
 } )
 });
+
+cartItemCountInputs=document.querySelectorAll('.js-cart-item-count');
+cartItemCountInputs.forEach((input)=>{
+    input.addEventListener('input', (event)=>{
+        let formData= new FormData();
+        formData.set('count', input.value);
+
+        fetch(input.dataset.url, {
+            method: 'post',
+            body: formData
+        })
+            .then((response)=> {
+                return response.text();
+            })
+            .then((body) => {
+                document.getElementById('cartTable').innerHTML = body;
+            });
+    });
+});
+
+cartTable=document.getElementById('cartTable');
+
+
+if(cartTable) {
+    cartTable.addEventListener('input', (event) => {
+        if (!event.target.classList.contains('js-cart-item-count')) {
+            return;
+        }
+        let input = event.target;
+        let formData = new FormData();
+        formData.set('count', input.value);
+
+        fetch(input.dataset.url, {
+            method: 'post',
+            body: formData
+        })
+            .then((response) => {
+                return response.text();
+            })
+            .then((body) => {
+                document.getElementById('cartTable').innerHTML = body;
+            });
+    });
+
+
+    cartTable.addEventListener('click', (event) => {
+
+        let link = event.target.closest('.js-cart-remove-item');
+        if(!link){
+            return;
+        }
+        event.preventDefault();
+        fetch(link.href)
+            .then((response) => {
+                return response.text();
+            })
+            .then((body) => {
+                cartTable.innerHTML = body;
+            });
+    })
+}

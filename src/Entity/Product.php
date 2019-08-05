@@ -187,34 +187,5 @@ $this->orderItems = new ArrayCollection();
         return $this;
     }
 
-    /**
-     * @return Collection|OrderItem[]
-     */
-    public function getOrderItems(): Collection
-    {
-        return $this->orderItems;
-    }
 
-    public function addOrderItem(OrderItem $orderItem): self
-    {
-        if (!$this->orderItems->contains($orderItem)) {
-            $this->orderItems[] = $orderItem;
-            $orderItem->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderItem(OrderItem $orderItem): self
-    {
-        if ($this->orderItems->contains($orderItem)) {
-            $this->orderItems->removeElement($orderItem);
-            // set the owning side to null (unless already changed)
-            if ($orderItem->getProduct() === $this) {
-                $orderItem->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
 }
