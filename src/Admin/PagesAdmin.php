@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: skillup_student
- * Date: 03.07.19
- * Time: 19:37
- */
+
 
 namespace App\Admin;
 
@@ -13,14 +8,19 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class CategoryAdmin extends AbstractAdmin
+
+class PagesAdmin extends AbstractAdmin
 {
     protected function configureListFields(ListMapper $list)
     {
         $list
             ->addIdentifier('id')
             ->addIdentifier('name')
+            ->addIdentifier('content')
+            ->addIdentifier('parent')
+
         ;
     }
 
@@ -29,16 +29,24 @@ class CategoryAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('name')
+            ->add('content' )
+            ->add('parent')
+
         ;
     }
+
 
     protected function configureFormFields(FormMapper $form)
     {
         $form
-
             ->add('name')
-        ;
+            ->add('content',TextareaType::class ,array(
+        'attr' => array(
+            'class' => 'tinymce',
+            'data-theme' => 'bbcode' // Skip it if you want to use default theme
+        ) )
+            )
+            ->add('parent')
+           ;
     }
-
-
 }

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<form method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Редактируем</h1>
+    <label for="title" class="sr-only">Email</label>
+    <input type="text" value="{{ pages.name }}" name="title" id="title" class="form-control" placeholder="title" required autofocus>
+    <label for="content" class="sr-only">Password</label>
+    <textarea content="sdgfadsfg" type="text" name="content" id="content" class="form-control" placeholder="content" required>
+        {{ pages.content }}
+    </textarea>
+  <button class="btn btn-lg btn-primary" name="submit" type="submit">
+       Обновить
+    </button>
+</form>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

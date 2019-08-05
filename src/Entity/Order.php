@@ -30,10 +30,9 @@ class Order
     private $amount;
 
     /**
-     * @ORM\Column(type="integer" , options={"default":0})
+     * @ORM\Column(type="integer", options={"default":0})
      */
     private $count;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="cart", orphanRemoval=true, cascade={"persist"})
      */
@@ -43,7 +42,7 @@ class Order
     {
         $this->amount=0;
         $this->count=0;
-        $this->items = new ArrayCollection();
+        $this->items=new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,7 +93,6 @@ class Order
     {
         return $this->items;
     }
-
     public function addItem(OrderItem $item): self
     {
         if (!$this->items->contains($item)) {
@@ -102,10 +100,8 @@ class Order
             $item->setCart($this);
             $this->updateAmount();
         }
-
         return $this;
     }
-
     public function removeItem(OrderItem $item): self
     {
         if ($this->items->contains($item)) {
@@ -116,19 +112,18 @@ class Order
                 $item->setCart(null);
             }
         }
-
         return $this;
     }
     public function updateAmount()
     {
-        $amount =0;
-       $count=0;
-        foreach ($this->getItems() as $item)
-        {
-            $count+=$item->getCount();
-            $amount+=$item->getAmount();
+        $amount = 0;
+        $count = 0;
+        foreach ($this->getItems() as $item) {
+            $amount += $item->getAmount();
+            $count += $item->getCount();
         }
-        $this->setCount($count);
         $this->setAmount($amount);
+        $this->setCount($count);
     }
+
 }

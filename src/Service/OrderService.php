@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: skillup_student
- * Date: 29.07.19
- * Time: 19:53
- */
+
 
 namespace App\Service;
 
@@ -15,72 +10,71 @@ use App\Entity\Product;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
 class OrderService
 {
-    const SESSION_KEY='currentOrder';
-
+    const SESSION_KEY='current_order';
     /**
      * @var EntityManagerInterface
      */
-      private  $entityManager;
-
+         private $entitymanager;
     /**
      * @var SessionInterface
      */
-      private  $session;
+    private $sessions;
+    /**
+     * @var OrderRepository
+     */
+    private $orderRepo;
 
-    public function __construct(EntityManagerInterface $entityManager,
-                                SessionInterface $session,
-                                OrderRepository $orderRepository)
-    {
-        $this->entityManager = $entityManager;
-        $this->sessions = $session;
-        $this->orderRepository=$orderRepository;
-    }
-    public function getOrder()
-    {$order=null;
-    $orderId=$this->sessions->get(self::SESSION_KEY);
-        if ($orderId)
-        {
-            $order=$this->orderRepository->find($orderId);
-        }
-        if(!$order)
-        {
-            $order= new Order();
-        }
-        return $order;
-    }
-    public function add(Product $product, int $count): Order
-    {
-        $order=$this->getOrder();
-        $existeningItem=null;
-        foreach ($order->getItems() as $item) {
-            if($item->getProductss()===$product)
-            {$existeningItem=$item;
-            break;}
-        }
-        if($existeningItem)
-        {
-            $newCount=$existeningItem->getCount()+$count;
-            $existeningItem->setCount($newCount);
-        }else
-        {
-            $existeningItem=new OrderItem();
-            $existeningItem->setProductss($product);
-            $existeningItem->setCount($count);
-            $order->addItem($existeningItem);
-        }
-        $this->save($order);
-        return $order;
-    }
-    public function save(Order $order)
-    {
-        $this->entityManager->persist($order);
-        $this->entityManager->flush();
 
-        $this->sessions->set(self::SESSION_KEY, $order->getId());
-    }
+         public function __construct(EntityManagerInterface $entityManager,
+                                     SessionInterface $sessions,
+                                    OrderRepository $orderRepo)
+         {
+             $this->entitymanager=$entityManager;
+             $this->sessions= $sessions;
+             $this->orderRepo=$orderRepo;
+         }
 
+         public function getOrder():Order
+         { $order=null;
+            $orderId=$this->sessions->get(self::SESSION_KEY);
+            if($orderId){
+             $order=$this->orderRepo->find($orderId);
+            }
+            if(!$order){
+                $order= new Order();
+            }
+            return $order;
+         }
+
+         public function add(Product $product, int $count): Order
+         {
+             $order= $this->getOrder();
+             $existeningItem=null;
+             foreach ($order->getItems() as $item){
+               if($item->getProduct()===$product){
+                   $existeningItem=$item;
+                   break;
+               }
+             }
+             if($existeningItem){
+                 $newCount=$existeningItem->getCount()+$count;
+                 $existeningItem->setCount($newCount);
+             }else{
+                 $existeningItem= new OrderItem();
+                 $existeningItem->setProduct($product);
+                 $existeningItem->setCount($count);
+                 $order->addItem($existeningItem);
+             }
+             $this->save($order);
+             return $order;
+         }
+         public function save(Order $order)
+         {
+             $this->entitymanager->persist($order);
+             $this->entitymanager->flush($order);
+             $this->sessions->set(self::SESSION_KEY, $order->getId());
+         }
 }

@@ -51,7 +51,7 @@ if ($form->isSubmitted() && $form->isValid())
     return $this->redirectToRoute('security_register_success');
 }
             return $this->render('security/register.html.twig',
-                [
+            [
               'form' => $form->createView(),
             ]);
 

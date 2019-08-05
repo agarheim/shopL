@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderItemRepository")
- * @ORM\Table(name="order_items")
+ *  @ORM\Table(name="order_items")
  */
 class OrderItem
 {
@@ -18,13 +18,14 @@ class OrderItem
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="items")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Order")
      * @ORM\JoinColumn(nullable=false)
      */
     private $cart;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="orderItems")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
@@ -68,11 +69,10 @@ class OrderItem
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
-        if($product)
-        {
-            $this->name=$product->getName();
-            $this->price=$product->getPrice();
-        }
+         if($product){
+             $this->name=$product->getName();
+             $this->price=$product->getPrice();
+         }
         return $this;
     }
 
@@ -108,12 +108,14 @@ class OrderItem
     public function setCount(int $count): self
     {
         $this->count = $count;
-     if($this->cart){$this->cart->updateAmount();
-    }
+        if ($this->cart) {
+            $this->cart->updateAmount();
+        }
         return $this;
     }
-    public function getAmount():int
+    public function getAmount(): int
     {
-        return $this->getPrice()*$this->getCount();
+        return $this->getPrice() * $this->getCount();
     }
+
 }

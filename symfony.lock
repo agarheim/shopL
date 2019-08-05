@@ -216,6 +216,9 @@
     "sonata-project/exporter": {
         "version": "2.0.1"
     },
+    "stfalcon/tinymce-bundle": {
+        "version": "v2.4.0"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },
