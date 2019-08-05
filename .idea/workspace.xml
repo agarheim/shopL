@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="84d7a636-0ca1-4e36-b11e-6eb4a3aa3e97" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/OrderService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/OrderService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="84d7a636-0ca1-4e36-b11e-6eb4a3aa3e97" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/vendor/behat/transliterator/" />
     <ignored path="$PROJECT_DIR$/vendor/imagine/imagine/" />
     <ignored path="$PROJECT_DIR$/vendor/jms/metadata/" />
@@ -110,7 +105,7 @@
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.4" value="1" />
@@ -138,7 +133,7 @@
         <entry file="file://$PROJECT_DIR$/src/Controller/OrderController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+              <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
               <folding>
                 <element signature="e#125#148#0#PHP" expanded="true" />
                 <element signature="e#800#809#1#PHP" expanded="true" />
@@ -182,7 +177,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
+            <state relative-caret-position="101">
               <caret line="38" column="95" selection-start-line="38" selection-start-column="95" selection-end-line="38" selection-end-column="95" />
               <folding>
                 <element signature="e#2042#2052#0#Twig" expanded="true" />
@@ -496,7 +491,7 @@
       <workItem from="1563386388222" duration="247000" />
       <workItem from="1563811347414" duration="266000" />
       <workItem from="1564416903907" duration="7980000" />
-      <workItem from="1564588939000" duration="7028000" />
+      <workItem from="1564588939000" duration="7185000" />
     </task>
     <task id="LOCAL-00001" summary="image add">
       <created>1563385087006</created>
@@ -547,18 +542,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564595799424</updated>
     </task>
-    <task id="LOCAL-00008" summary="work to db">
-      <created>1562609480564</created>
+    <task id="LOCAL-00008" summary="add cart AJAX">
+      <created>1564596116580</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1562609480564</updated>
+      <updated>1564596116580</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22362000" />
+    <option name="totallyTimeSpent" value="22519000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -571,9 +566,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-4" width="1311" height="772" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17865613" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17865613" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -584,7 +578,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="7" sideWeight="0.49881423" weight="0.32919255" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.5399209" weight="0.44720498" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.5399209" visible="true" weight="0.44720498" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.46007904" side_tool="true" weight="0.44720498" />
       <window_info anchor="bottom" id="PHP-CGI Server" order="10" />
       <window_info anchor="bottom" id="Database Console" order="11" sideWeight="0.49407116" weight="0.32919255" />
@@ -870,7 +864,7 @@
     <entry file="file://$PROJECT_DIR$/src/Controller/OrderController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
           <folding>
             <element signature="e#125#148#0#PHP" expanded="true" />
             <element signature="e#800#809#1#PHP" expanded="true" />
@@ -891,7 +885,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
+        <state relative-caret-position="101">
           <caret line="38" column="95" selection-start-line="38" selection-start-column="95" selection-end-line="38" selection-end-column="95" />
           <folding>
             <element signature="e#2042#2052#0#Twig" expanded="true" />
