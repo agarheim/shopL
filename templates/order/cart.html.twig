@@ -8,4 +8,8 @@
 	<div id="cartTable">
 		{{ include('order/_cart_table.html.twig', {'order': order}) }}
 	</div>
+
+	<a href="{{ path('order_make_order') }}" class="btn btn-default">
+		Оформить заказ
+	</a>
 {% endblock %}
