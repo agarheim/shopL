@@ -62,6 +62,11 @@ class Product
         $this->orderItems = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+     return $this->getName();   // TODO: Implement __toString() method.
+    }
+
     public function getId(): ?int
     {
         return $this->id;
