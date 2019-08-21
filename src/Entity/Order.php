@@ -44,7 +44,7 @@ private $firstName;
 */
 private $lastName;
 /**
-* @ORM\Column(type="string", length=180)
+* @ORM\Column(type="string", length=180,  nullable=true)
 * @Assert\NotBlank()
 * @Assert\Email(checkHost=true, checkMX=true )
 */

@@ -7,11 +7,13 @@
 
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/app.css');
+require('../css/menu.css');
 require('@fortawesome/fontawesome-free/js/all');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
 
 require('./modules/cart');
+require('./modules/menu');
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
