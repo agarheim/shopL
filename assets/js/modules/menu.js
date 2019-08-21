@@ -4,7 +4,7 @@
  * Licensed under the GPL license
  */
 
-
+require('../../css/menu.css');
 $( document ).ready( function () {
     $( '.dropdown-menu a.dropdown-toggle' ).on( 'click', function ( e ) {
         var $el = $( this );
