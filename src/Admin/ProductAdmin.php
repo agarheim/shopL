@@ -2,6 +2,7 @@
 
 namespace App\Admin;
 
+use function Sodium\add;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -53,7 +54,15 @@ class ProductAdmin extends AbstractAdmin
                     'edit' => 'inline',
                     'inline' => 'table',
                 ]
-            );
+            )
+        ->add('attributeValues', CollectionType::class,
+        [
+            'by_reference' => false
+        ],
+        [
+            'edit' => 'inline',
+            'inline' => 'table',
+        ])
         ;
     }
 
