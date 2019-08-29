@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\Json;
 
@@ -41,7 +42,11 @@ class AttributeAdmin extends AbstractAdmin
          $form
 
              ->add('category')
-             ->add('name')
+             ->add('name', ChoiceType::class, [
+                 'choice_attr' => [
+                     'class' => 'id-cat',
+                 ]
+             ])
              ->add('valuesList', TextareaType::class)
              ;
          $form->get('valuesList')->addModelTransformer(new CallbackTransformer(
