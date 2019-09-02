@@ -56,10 +56,10 @@ class Product
     private $orderItems;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AttributeValue", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="App\Entity\AttributeValue", mappedBy="product",
+     *     orphanRemoval=true, cascade={"persist"})
      */
     private $attributeValues;
-
     public function __construct()
     {
         $this->isTop = false;
@@ -67,10 +67,9 @@ class Product
         $this->orderItems = new ArrayCollection();
         $this->attributeValues = new ArrayCollection();
     }
-
     public function __toString()
     {
-     return $this->getName();   // TODO: Implement __toString() method.
+        return $this->getName();
     }
 
     public function getId(): ?int
