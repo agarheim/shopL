@@ -1,17 +1,12 @@
 <?php
-
 namespace App\Admin;
-
-use function Sodium\add;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\Form\Type\CollectionType;
-
 class ProductAdmin extends AbstractAdmin
 {
-
     protected function configureListFields(ListMapper $list)
     {
         $list
@@ -23,7 +18,6 @@ class ProductAdmin extends AbstractAdmin
             ->add('isTop')
         ;
     }
-
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
@@ -35,12 +29,15 @@ class ProductAdmin extends AbstractAdmin
             ->add('isTop')
         ;
     }
-
     protected function configureFormFields(FormMapper $form)
     {
         $form
             ->add('name')
-            ->add('category')
+            ->add('category', null, [
+                'attr' => [
+                    'class' => 'js-product-category',
+                ]
+            ])
             ->add('price')
             ->add('description')
             ->add('isTop')
@@ -55,15 +52,17 @@ class ProductAdmin extends AbstractAdmin
                     'inline' => 'table',
                 ]
             )
-        ->add('attributeValues', CollectionType::class,
-        [
-            'by_reference' => false
-        ],
-        [
-            'edit' => 'inline',
-            'inline' => 'table',
-        ])
+            ->add(
+                'attributeValues',
+                CollectionType::class,
+                [
+                    'by_reference' => false,
+                ],
+                [
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                ]
+            );
         ;
     }
-
 }

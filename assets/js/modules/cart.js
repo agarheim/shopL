@@ -43,7 +43,6 @@ if (cartTable) {
 				return response.json();
 			})
 			.then((body) => {
-
 				document.getElementById('header-cart').innerHTML = body['headerCart']['content'];
 				cartTable.innerHTML = body['cartTable']['content'];
 			});
