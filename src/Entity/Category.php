@@ -24,10 +24,6 @@ class Category
      */
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
-     */
-    private $products;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="subcategories")
@@ -44,11 +40,25 @@ class Category
      */
     private $attributes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="categories")
+     */
+    private $products;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $comfyId;
+
+
+
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+
         $this->subcategories = new ArrayCollection();
         $this->attributes = new ArrayCollection();
+        $this->products = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -68,36 +78,7 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
 
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function __toString()
     {
@@ -177,5 +158,47 @@ class Category
 
         return $this;
     }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            $product->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function getComfyId(): ?int
+    {
+        return $this->comfyId;
+    }
+
+    public function setComfyId(?int $comfyId): self
+    {
+        $this->comfyId = $comfyId;
+
+        return $this;
+    }
+
+
 
 }

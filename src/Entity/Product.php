@@ -39,10 +39,6 @@ class Product
      */
     private $isTop;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
-     */
-    private $category;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProductImage", mappedBy="product",
@@ -60,12 +56,24 @@ class Product
      */
     private $attributeValues;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $comfyId;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="products")
+     */
+    private $categories;
+
+
     public function __construct()
     {
         $this->isTop = false;
         $this->images = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
         $this->attributeValues = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function __toString()
@@ -126,17 +134,6 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
 
     /**
      * @return Collection|ProductImage[]
@@ -226,6 +223,48 @@ class Product
             if ($attributeValue->getProduct() === $this) {
                 $attributeValue->setProduct(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getComfyId(): ?int
+    {
+        return $this->comfyId;
+    }
+
+    public function setComfyId(int $comfyId): self
+    {
+        $this->comfyId = $comfyId;
+
+        return $this;
+    }
+
+    public function getCategories(): ?Category
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Category $categories): self
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
         }
 
         return $this;

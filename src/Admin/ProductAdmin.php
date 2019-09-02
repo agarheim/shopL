@@ -12,7 +12,7 @@ class ProductAdmin extends AbstractAdmin
         $list
             ->addIdentifier('id')
             ->addIdentifier('name')
-            ->add('category')
+            ->add('categories')
             ->addIdentifier('price')
             ->addIdentifier('description')
             ->add('isTop')
@@ -23,7 +23,7 @@ class ProductAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('name')
-            ->add('category')
+            ->add('categories')
             ->add('price')
             ->add('description')
             ->add('isTop')
@@ -33,7 +33,7 @@ class ProductAdmin extends AbstractAdmin
     {
         $form
             ->add('name')
-            ->add('category', null, [
+            ->add('categories', null, [
                 'attr' => [
                     'class' => 'js-product-category',
                 ]
