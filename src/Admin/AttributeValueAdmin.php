@@ -23,7 +23,7 @@ class AttributeValueAdmin extends AbstractAdmin
                     if ($attributeValue) {
                         $product = $attributeValue->getProduct();
                         if ( $product ) {
-                            $category = $attributeValue->getProduct()->getCategory();
+                            $category = $attributeValue->getProduct()->getCategories();
                             if ( $category ) {
                                 $queryBuilder->where('a.category = :category')->setParameter('category', $category);
                             }

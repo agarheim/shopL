@@ -240,33 +240,25 @@ class Product
         return $this;
     }
 
-    public function getCategories(): ?Category
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
     {
         return $this->categories;
     }
-
-    public function setCategories(?Category $categories): self
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
     public function addCategory(Category $category): self
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
         }
-
         return $this;
     }
-
     public function removeCategory(Category $category): self
     {
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
         }
-
         return $this;
     }
 }

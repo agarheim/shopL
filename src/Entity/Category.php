@@ -45,6 +45,7 @@ class Category
      */
     private $products;
 
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */

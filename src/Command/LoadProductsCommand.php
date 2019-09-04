@@ -2,12 +2,16 @@
 
 namespace App\Command;
 
+use App\Entity\Attribute;
+use App\Entity\AttributeValue;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\ProductImage;
+use App\Repository\AttributeRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Rct567\DomQuery\DomQuery;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,6 +61,7 @@ class LoadProductsCommand extends Command
         $content = file_get_contents($url);
 
         $data = json_decode($content, true);
+
        /** @var ProductRepository $repo */
         $repo = $this->entityManager->getRepository(Product::class);
 
@@ -69,10 +74,11 @@ class LoadProductsCommand extends Command
                 $this->entityManager->persist($product);
 
             }
-             $product->setName($item['Name']);
-            $product->setDescription($item['Description']);
-                $product->setPrice($item['Price']*100);
-                $this->processCategories($product, $item);
+               $product->setName($item['Name']);
+               $product->setDescription($item['Description']);
+               $product->setPrice($item['Price']*100);
+               $this->processCategories($product, $item);
+               $this->processAttributes($product, $item);
 
                 if(isset($item['PictureUrl'])){
                     $image = $product->getImages()->first();
@@ -114,7 +120,82 @@ class LoadProductsCommand extends Command
             $category->setName($item['CategoryNames'][$index]);
         }
 
-        $product->addCategory();
+        $product->addCategory($category);
       }
+    }
+
+    private function processAttributes(Product $product, array $item)
+    {
+        $content = file_get_contents($item['Url']);
+        $dom = new DomQuery($content);
+
+        /** @var AttributeRepository $attributeRepo */
+        $attributeRepo = $this->entityManager->getRepository(Product::class);
+        $attributeNodes = $dom->find('dl/features-item_list');
+        $attributes = $this->getAllAttributes();
+
+        /** @var DomQuery $node */
+        foreach ($attributeNodes as $node){
+            $title = $this->cleanupString($node->find('dt.title')->text());
+            $value = $this->cleanupString($node->find('dd.value.value_item')->text());
+
+            $attribute = $attributes[$title] ?? null;
+
+            if (!$attribute){
+                $attribute = new Attribute();
+                $attribute->setName($title);
+                $attribute->setCategory($product->getCategories()->first());
+                $this->entityManager->persist($attribute);
+                $attributes[$title] = $attribute;
+            }
+            $attributeValues = $attribute->getValuesList();
+
+            if(!in_array($value, $attributeValues)){
+                $attributeValues[] = $value;
+                $attribute->setValuesList($attributeValues);
+
+            }
+
+            $productAttributeValue = $this->getProductAttributeValue($product, $attribute);
+            $productAttributeValue->setValue($value);
+        }
+    }
+
+    public function getAllAttributes()
+    {
+        $attributes = [];
+
+        /** @var AttributeRepository $attributeRepo */
+        $attributeRepo = $this->entityManager->getRepository(Attribute::class);
+
+        foreach ($attributes->findAll() as $attribute){
+            $attributes[$attribute->getName()] = $attribute;
+        }
+
+        return $attributes;
+    }
+
+    private function getProductAttributeValue($product, $attribute)
+    {
+        foreach ($product->getAttributeValues() as $productAttributeValue){
+            if ($productAttributeValue->getAttribute() === $attribute){
+                $attributeValue = $productAttributeValue;
+            }
+            }
+            if(!$attributeValue){
+                $attributeValue = new AttributeValue();
+                $attributeValue->setAttribute($attribute);
+                $this->entityManager->persist($attributeValue);
+                $product->addAttributeValue($attributeValue);
+            }
+            return $attributeValue;
+    }
+
+    private function cleanupString($t)
+    {
+          $string = explode("\n", $t);
+          list ($string) = array_values(array_filter(array_map('trim', $string)));
+
+          return $string;
     }
 }

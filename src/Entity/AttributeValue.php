@@ -14,7 +14,7 @@ class AttributeValue
     private $id;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Attribute", inversedBy="attributeValues")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $attribute;
     /**
