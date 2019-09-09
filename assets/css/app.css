@@ -6,3 +6,34 @@ input.cart-item-count {
 	width: 4em;
 	text-align: right;
 }
+
+.card-deck .card {
+	min-width: 20%;
+	max-width: 30%;
+}
+
+
+.filter fieldset:after {
+	display: block;
+	position: absolute;
+	bottom: 1px;
+	width: 8px;
+	height: 8px;
+	left: 50%;
+	border-bottom: 2px solid black;
+	border-right: 2px solid black;
+	transform: rotate(45deg);
+	content: ' ';
+}
+
+.filter fieldset.expanded {
+	max-height: none;
+}
+
+.filter filter.expanded > div:after {
+	display: none;
+}
+
+.filter fieldset.expanded:after {
+	display: none;
+}
